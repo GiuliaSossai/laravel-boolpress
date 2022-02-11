@@ -6,6 +6,7 @@ import About from './components/pages/About';
 import Contacts from './components/pages/Contacts';
 import Posts from './components/pages/Posts';
 import PostDetail from './components/pages/PostDetail';
+import Error from './components/pages/Error';
 
 Vue.use(VueRouter);
 
@@ -38,6 +39,10 @@ const router = new VueRouter({
          name: 'detail',
          component: PostDetail
       },
+      {
+         path: '*',
+         component: Error
+      }
    ]
 });
 
