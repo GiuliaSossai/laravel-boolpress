@@ -2,28 +2,35 @@
     <main>
         <h3>Lista post</h3>
 
-        <PostItem 
-            v-for="post in posts"
-            :key="post.id"
-            :post="post"
-        />
+        <div v-if="posts">
+            <PostItem 
+                v-for="post in posts"
+                :key="post.id"
+                :post="post"
+            />
 
-        <div class="navigation">
-            <button 
-                @click="getPosts(pagination.current - 1)"
-                :disabled="pagination.current === 1"
-            >prev</button>
-            <button
-                v-for="iteration in pagination.last"
-                :key="iteration"
-                @click="getPosts(iteration)"
-                :disabled="pagination.current === iteration"
-            >{{ iteration }}</button>
-            <button 
-                @click="getPosts(pagination.current + 1)"
-                :disabled="pagination.current === pagination.last"
-            >next</button>
+            <div class="navigation">
+                <button 
+                    @click="getPosts(pagination.current - 1)"
+                    :disabled="pagination.current === 1"
+                >prev</button>
+                <button
+                    v-for="iteration in pagination.last"
+                    :key="iteration"
+                    @click="getPosts(iteration)"
+                    :disabled="pagination.current === iteration"
+                >{{ iteration }}</button>
+                <button 
+                    @click="getPosts(pagination.current + 1)"
+                    :disabled="pagination.current === pagination.last"
+                >next</button>
+            </div>
         </div>
+
+        <div v-else>
+            <h3>Loading...</h3>
+        </div>
+        
 
     </main>
 </template>

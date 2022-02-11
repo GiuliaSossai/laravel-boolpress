@@ -2037,6 +2037,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Posts',
@@ -2142,6 +2149,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Post',
   props: {
@@ -2232,7 +2248,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".item[data-v-49c43f95] {\n  padding: 20px 0;\n}", ""]);
+exports.push([module.i, ".item[data-v-49c43f95] {\n  padding: 20px 0;\n}\n.item a[data-v-49c43f95] {\n  text-decoration: none;\n  color: black;\n}\n.item a[data-v-49c43f95]:hover {\n  color: brown;\n}\n.item .category[data-v-49c43f95] {\n  margin: 5px 0;\n  color: #6b6969;\n}\n.item span[data-v-49c43f95] {\n  margin-right: 10px;\n  display: inline-block;\n  padding: 4px 8px;\n  font-size: 10px;\n  background-color: #b0f2f5;\n  border-radius: 5px;\n}", ""]);
 
 // exports
 
@@ -3563,68 +3579,72 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "main",
-    [
-      _c("h3", [_vm._v("Lista post")]),
-      _vm._v(" "),
-      _vm._l(_vm.posts, function (post) {
-        return _c("PostItem", { key: post.id, attrs: { post: post } })
-      }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "navigation" },
-        [
-          _c(
-            "button",
-            {
-              attrs: { disabled: _vm.pagination.current === 1 },
-              on: {
-                click: function ($event) {
-                  return _vm.getPosts(_vm.pagination.current - 1)
-                },
-              },
-            },
-            [_vm._v("prev")]
-          ),
-          _vm._v(" "),
-          _vm._l(_vm.pagination.last, function (iteration) {
-            return _c(
-              "button",
-              {
-                key: iteration,
-                attrs: { disabled: _vm.pagination.current === iteration },
-                on: {
-                  click: function ($event) {
-                    return _vm.getPosts(iteration)
+  return _c("main", [
+    _c("h3", [_vm._v("Lista post")]),
+    _vm._v(" "),
+    _vm.posts
+      ? _c(
+          "div",
+          [
+            _vm._l(_vm.posts, function (post) {
+              return _c("PostItem", { key: post.id, attrs: { post: post } })
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "navigation" },
+              [
+                _c(
+                  "button",
+                  {
+                    attrs: { disabled: _vm.pagination.current === 1 },
+                    on: {
+                      click: function ($event) {
+                        return _vm.getPosts(_vm.pagination.current - 1)
+                      },
+                    },
                   },
-                },
-              },
-              [_vm._v(_vm._s(iteration))]
-            )
-          }),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              attrs: {
-                disabled: _vm.pagination.current === _vm.pagination.last,
-              },
-              on: {
-                click: function ($event) {
-                  return _vm.getPosts(_vm.pagination.current + 1)
-                },
-              },
-            },
-            [_vm._v("next")]
-          ),
-        ],
-        2
-      ),
-    ],
-    2
-  )
+                  [_vm._v("prev")]
+                ),
+                _vm._v(" "),
+                _vm._l(_vm.pagination.last, function (iteration) {
+                  return _c(
+                    "button",
+                    {
+                      key: iteration,
+                      attrs: { disabled: _vm.pagination.current === iteration },
+                      on: {
+                        click: function ($event) {
+                          return _vm.getPosts(iteration)
+                        },
+                      },
+                    },
+                    [_vm._v(_vm._s(iteration))]
+                  )
+                }),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    attrs: {
+                      disabled: _vm.pagination.current === _vm.pagination.last,
+                    },
+                    on: {
+                      click: function ($event) {
+                        return _vm.getPosts(_vm.pagination.current + 1)
+                      },
+                    },
+                  },
+                  [_vm._v("next")]
+                ),
+              ],
+              2
+            ),
+          ],
+          2
+        )
+      : _c("div", [_c("h3", [_vm._v("Loading...")])]),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -3748,7 +3768,23 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "item" }, [
-    _c("h4", [_vm._v(_vm._s(_vm.post.title))]),
+    _c("h4", [
+      _c("a", { attrs: { href: "" } }, [_vm._v(_vm._s(_vm.post.title))]),
+    ]),
+    _vm._v(" "),
+    _vm.post.category
+      ? _c("p", { staticClass: "category" }, [
+          _vm._v(_vm._s(_vm.post.category.name)),
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "div",
+      _vm._l(_vm.post.tags, function (tag, index) {
+        return _c("span", { key: "tag" + index }, [_vm._v(_vm._s(tag.name))])
+      }),
+      0
+    ),
     _vm._v(" "),
     _c("small", [_vm._v(_vm._s(_vm.getDateFormat()))]),
     _vm._v(" "),
