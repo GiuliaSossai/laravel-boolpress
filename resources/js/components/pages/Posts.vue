@@ -60,12 +60,9 @@ export default {
 
     methods: {
         getPosts(page = 1){
-           // console.log(axios);
            axios.get(this.apiUrl + page)
             .then(res => {
-                //dopo aver messo paginate nel controller api, devo mettere res.data.data perché ho bisogno dell'ooggetto data restituito dalla paginazione (quindi di fatto ho due oggetti data, unno per la paginazione e uno per la chiamata axios)
                 this.posts = res.data.data;
-                //console.log(this.posts);
                 this.pagination = {
                     current: res.data.current_page,
                     last: res.data.last_page
