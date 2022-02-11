@@ -2339,7 +2339,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "header[data-v-79cec062] {\n  background-color: #fdc775;\n  padding: 30px 0;\n  text-align: center;\n}\nheader ul[data-v-79cec062] {\n  list-style: none;\n}\nheader ul li[data-v-79cec062] {\n  display: inline-block;\n  margin: 0 20px;\n}\nheader ul li a[data-v-79cec062] {\n  text-transform: uppercase;\n  font-weight: 800;\n  text-decoration: none;\n  cursor: pointer;\n  color: #7b7770;\n}\nheader ul li a[data-v-79cec062]:hover {\n  color: #503409;\n}\nheader ul li a.active[data-v-79cec062] {\n  color: #0b5807;\n}", ""]);
+exports.push([module.i, "header[data-v-79cec062] {\n  background-color: #fdc775;\n  padding: 30px 0;\n  text-align: center;\n}\nheader ul[data-v-79cec062] {\n  list-style: none;\n}\nheader ul li[data-v-79cec062] {\n  display: inline-block;\n  margin: 0 20px;\n}\nheader ul li a[data-v-79cec062] {\n  text-transform: uppercase;\n  font-weight: 800;\n  text-decoration: none;\n  cursor: pointer;\n  color: #7b7770;\n}\nheader ul li a[data-v-79cec062]:hover {\n  color: #503409;\n}\nheader ul li a.router-link-exact-active[data-v-79cec062] {\n  color: #0b5807;\n}", ""]);
 
 // exports
 
@@ -19721,7 +19721,7 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
-  linkActiveClass: 'active',
+  //linkActiveClass: 'active',
   routes: [{
     path: '/',
     name: 'home',

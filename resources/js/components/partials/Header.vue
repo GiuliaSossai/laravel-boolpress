@@ -36,7 +36,7 @@ export default {
                     &:hover {
                         color: rgb(80, 52, 9);
                     }
-                    &.active {
+                    &.router-link-exact-active {
                         color: rgb(11, 88, 7);
                     }
                 }
