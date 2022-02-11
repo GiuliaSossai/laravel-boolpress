@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import PostItem from './partials/PostItem';
+import PostItem from '../partials/PostItem';
 
 export default {
     name: 'Posts',

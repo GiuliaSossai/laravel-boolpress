@@ -3,7 +3,7 @@
        <nav>
            <ul>
                <li><router-link :to="{name: 'home'}">home</router-link></li>
-               <li><a href="#">blog</a></li>
+               <li><router-link :to="{name: 'blog'}">blog</router-link></li>
                <li><router-link :to="{name: 'about'}">about</router-link></li>
                <li><router-link :to="{name: 'contacts'}">contacts</router-link></li>
            </ul>
