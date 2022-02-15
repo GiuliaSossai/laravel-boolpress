@@ -2126,6 +2126,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2137,32 +2147,74 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       //dopo la paginazione bisogna correggere la url per fare la query
-      apiUrl: 'http://127.0.0.1:8000/api/posts?page=',
+      apiUrl: 'http://127.0.0.1:8000/api/posts',
       posts: null,
       pagination: {},
       categories: [],
-      tags: []
+      tags: [],
+      success: true,
+      error_msg: '',
+      title: 'I miei post',
+      globalPosts: true
     };
   },
   mounted: function mounted() {
     this.getPosts();
   },
   methods: {
+    reset: function reset() {
+      this.erorr_msg = '';
+      this.success = true;
+      this.posts = null;
+      this.title = 'I miei post';
+      this.globalPosts = true;
+    },
     getPosts: function getPosts() {
       var _this = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      this.posts = null;
-      axios.get(this.apiUrl + page).then(function (res) {
+      this.reset();
+      axios.get(this.apiUrl + '?page=' + page).then(function (res) {
         //dopo aver modificato il controller, res.data contiene categories e tags oltre all'array dei post
         _this.posts = res.data.posts.data;
         _this.categories = res.data.categories;
         _this.tags = res.data.tags;
         _this.pagination = {
-          current: res.data.current_page,
-          last: res.data.last_page
+          current: res.data.posts.current_page,
+          last: res.data.posts.last_page
         };
         console.log(_this.pagination);
+      });
+    },
+    getPostCategory: function getPostCategory(slug_category) {
+      var _this2 = this;
+
+      this.reset();
+      this.globalPosts = false;
+      axios.get(this.apiUrl + '/postcategory/' + slug_category).then(function (res) {
+        console.log(res.data.category.posts);
+        _this2.posts = res.data.category.posts;
+        _this2.title = "I miei post per la categoria: " + res.data.category.name;
+
+        if (!res.data.success) {
+          _this2.error_msg = res.data.error;
+          _this2.success = false;
+        }
+      });
+    },
+    getPostTag: function getPostTag(slug_tag) {
+      var _this3 = this;
+
+      this.reset();
+      this.globalPosts = false;
+      axios.get(this.apiUrl + '/posttag/' + slug_tag).then(function (res) {
+        _this3.posts = res.data.tag.posts;
+        _this3.title = "I miei post per il tag: " + res.data.tag.name;
+
+        if (!res.data.success) {
+          _this3.error_msg = res.data.error;
+          _this3.success = false;
+        }
       });
     }
   }
@@ -2296,6 +2348,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Sidebar',
   props: {
@@ -2356,7 +2414,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "main[data-v-9212e6a6] {\n  width: 80%;\n  margin: 0 auto;\n  display: flex;\n  padding: 30px;\n}\nmain .content[data-v-9212e6a6] {\n  width: 70%;\n}\nmain .content h3[data-v-9212e6a6] {\n  margin-bottom: 30px;\n}\nmain .content button[data-v-9212e6a6] {\n  padding: 10px;\n  margin-right: 10px;\n}", ""]);
+exports.push([module.i, "main[data-v-9212e6a6] {\n  width: 80%;\n  margin: 0 auto;\n  display: flex;\n  padding: 30px;\n}\nmain .content[data-v-9212e6a6] {\n  margin-bottom: 100px;\n  width: 70%;\n}\nmain .content h3[data-v-9212e6a6] {\n  margin-bottom: 30px;\n}\nmain .content button[data-v-9212e6a6] {\n  padding: 10px;\n  margin-right: 10px;\n}", ""]);
 
 // exports
 
@@ -2432,7 +2490,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".box[data-v-438bbc0a], span[data-v-438bbc0a] {\n  border: 1px solid grey;\n  border-radius: 8px;\n  padding: 8px;\n}\n.box[data-v-438bbc0a] {\n  margin-bottom: 20px;\n  background-color: #ebe5e5;\n}\nspan[data-v-438bbc0a] {\n  display: inline-block;\n  background-color: #eca5a5;\n  margin: 8px;\n  cursor: pointer;\n}\nspan[data-v-438bbc0a]:hover {\n  background-color: #f8cbcb;\n}\n.box.cat span[data-v-438bbc0a] {\n  background-color: #fadd38;\n}\n.box.cat span[data-v-438bbc0a]:hover {\n  background-color: #f8eca6;\n}", ""]);
+exports.push([module.i, ".box[data-v-438bbc0a], span[data-v-438bbc0a], button[data-v-438bbc0a] {\n  border: 1px solid grey;\n  border-radius: 8px;\n  padding: 8px;\n}\n.box[data-v-438bbc0a] {\n  margin-bottom: 20px;\n  background-color: #ebe5e5;\n}\nspan[data-v-438bbc0a] {\n  display: inline-block;\n  background-color: #eca5a5;\n  margin: 8px;\n  cursor: pointer;\n}\nspan[data-v-438bbc0a]:hover {\n  background-color: #f8cbcb;\n}\n.box.cat span[data-v-438bbc0a] {\n  background-color: #fadd38;\n}\n.box.cat span[data-v-438bbc0a]:hover {\n  background-color: #f8eca6;\n}\nbutton[data-v-438bbc0a]:hover {\n  color: #40f761;\n}", ""]);
 
 // exports
 
@@ -3934,76 +3992,100 @@ var render = function () {
     "main",
     [
       _c("div", { staticClass: "content" }, [
-        _c("h3", [_vm._v("i miei post:")]),
-        _vm._v(" "),
-        _vm.posts
-          ? _c(
-              "div",
-              [
-                _vm._l(_vm.posts, function (post) {
-                  return _c("PostItem", { key: post.id, attrs: { post: post } })
-                }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "navigation" },
-                  [
-                    _c(
-                      "button",
-                      {
-                        attrs: { disabled: _vm.pagination.current === 1 },
-                        on: {
-                          click: function ($event) {
-                            return _vm.getPosts(_vm.pagination.current - 1)
-                          },
-                        },
-                      },
-                      [_vm._v("prev")]
-                    ),
-                    _vm._v(" "),
-                    _vm._l(_vm.pagination.last, function (iteration) {
-                      return _c(
-                        "button",
-                        {
-                          key: iteration,
-                          attrs: {
-                            disabled: _vm.pagination.current === iteration,
-                          },
-                          on: {
-                            click: function ($event) {
-                              return _vm.getPosts(iteration)
-                            },
-                          },
-                        },
-                        [_vm._v(_vm._s(iteration))]
-                      )
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        attrs: {
-                          disabled:
-                            _vm.pagination.current === _vm.pagination.last,
-                        },
-                        on: {
-                          click: function ($event) {
-                            return _vm.getPosts(_vm.pagination.current + 1)
-                          },
-                        },
-                      },
-                      [_vm._v("next")]
-                    ),
-                  ],
-                  2
-                ),
-              ],
-              2
-            )
-          : _c("div", [_c("h3", [_vm._v("Loading...")])]),
+        _vm.success
+          ? _c("div", [
+              _c("h3", [_vm._v(_vm._s(_vm.title))]),
+              _vm._v(" "),
+              _vm.posts
+                ? _c(
+                    "div",
+                    [
+                      _vm._l(_vm.posts, function (post) {
+                        return _c("PostItem", {
+                          key: post.id,
+                          attrs: { post: post },
+                        })
+                      }),
+                      _vm._v(" "),
+                      _vm.globalPosts
+                        ? _c(
+                            "div",
+                            { staticClass: "navigation" },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  attrs: {
+                                    disabled: _vm.pagination.current === 1,
+                                  },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.getPosts(
+                                        _vm.pagination.current - 1
+                                      )
+                                    },
+                                  },
+                                },
+                                [_vm._v("prev")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.pagination.last, function (iteration) {
+                                return _c(
+                                  "button",
+                                  {
+                                    key: iteration,
+                                    attrs: {
+                                      disabled:
+                                        _vm.pagination.current === iteration,
+                                    },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.getPosts(iteration)
+                                      },
+                                    },
+                                  },
+                                  [_vm._v(_vm._s(iteration))]
+                                )
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  attrs: {
+                                    disabled:
+                                      _vm.pagination.current ===
+                                      _vm.pagination.last,
+                                  },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.getPosts(
+                                        _vm.pagination.current + 1
+                                      )
+                                    },
+                                  },
+                                },
+                                [_vm._v("next")]
+                              ),
+                            ],
+                            2
+                          )
+                        : _vm._e(),
+                    ],
+                    2
+                  )
+                : _c("div", [_c("h3", [_vm._v("Loading...")])]),
+            ])
+          : _c("div", [_c("h2", [_vm._v(_vm._s(_vm.error_msg))])]),
       ]),
       _vm._v(" "),
-      _c("Sidebar", { attrs: { tags: _vm.tags, categories: _vm.categories } }),
+      _c("Sidebar", {
+        attrs: { tags: _vm.tags, categories: _vm.categories },
+        on: {
+          getPostCategory: _vm.getPostCategory,
+          getPostTag: _vm.getPostTag,
+          getAllPosts: _vm.getPosts,
+        },
+      }),
     ],
     1
   )
@@ -4193,9 +4275,18 @@ var render = function () {
         _c("p", [_vm._v("Categorie:")]),
         _vm._v(" "),
         _vm._l(_vm.categories, function (category) {
-          return _c("span", { key: "category" + category.id }, [
-            _vm._v(_vm._s(category.name)),
-          ])
+          return _c(
+            "span",
+            {
+              key: "category" + category.id,
+              on: {
+                click: function ($event) {
+                  return _vm.$emit("getPostCategory", category.slug)
+                },
+              },
+            },
+            [_vm._v(_vm._s(category.name))]
+          )
         }),
       ],
       2
@@ -4208,10 +4299,33 @@ var render = function () {
         _c("p", [_vm._v("Tag:")]),
         _vm._v(" "),
         _vm._l(_vm.tags, function (tag) {
-          return _c("span", { key: "tag" + tag.id }, [_vm._v(_vm._s(tag.name))])
+          return _c(
+            "span",
+            {
+              key: "tag" + tag.id,
+              on: {
+                click: function ($event) {
+                  return _vm.$emit("getPostTag", tag.slug)
+                },
+              },
+            },
+            [_vm._v(_vm._s(tag.name))]
+          )
         }),
       ],
       2
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        on: {
+          click: function ($event) {
+            return _vm.$emit("getAllPosts")
+          },
+        },
+      },
+      [_vm._v("tutti i post")]
     ),
   ])
 }

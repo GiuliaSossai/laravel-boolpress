@@ -5,6 +5,7 @@
          <span
             v-for="category in categories"
             :key="`category${category.id}`"
+            @click="$emit('getPostCategory', category.slug)"
          >{{ category.name }}</span>
          
       </div>
@@ -14,8 +15,13 @@
          <span
             v-for="tag in tags"
             :key="`tag${tag.id}`"
+            @click="$emit('getPostTag', tag.slug)"
          >{{ tag.name }}</span>
       </div>
+
+      <button
+         @click="$emit('getAllPosts')"
+      >tutti i post</button>
    </div>
 </template>
 
@@ -31,7 +37,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-   .box, span {
+   .box, span, button {
       border: 1px solid grey;
       border-radius: 8px;
       padding: 8px;
@@ -56,6 +62,9 @@ export default {
          background-color: rgb(248, 236, 166);
          }
       }
+   }
+   button:hover {
+      color: rgb(64, 247, 97);
    }
    
 
