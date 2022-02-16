@@ -1,11 +1,14 @@
 <template>
   <header>
        <nav>
+           <div>
+               <h2>blog dei blog</h2>
+           </div>
            <ul>
                <li><router-link :to="{name: 'home'}">home</router-link></li>
-               <li><router-link :to="{name: 'blog'}">blog</router-link></li>
                <li><router-link :to="{name: 'about'}">about</router-link></li>
-               <li><router-link :to="{name: 'contacts'}">contacts</router-link></li>
+               <li><router-link :to="{name: 'blog'}">blog</router-link></li>
+               <li><router-link :to="{name: 'contacts'}">keep in contact</router-link></li>
            </ul>
         </nav> 
   </header>
@@ -19,9 +22,21 @@ export default {
 
 <style lang="scss" scoped>
     header {
-        background-color: rgb(253, 199, 117);
-        padding: 30px 0;
+        background-color: rgb(247, 247, 247);
+        border-bottom: 2px solid rgb(230, 230, 230);
+        padding: 30px 50px;
         text-align: center;
+        position: fixed;
+        width: 100%;
+        nav {
+            display: flex;
+            justify-content: space-between;
+            h2 {
+                color: #95979b;
+                text-transform: uppercase;
+                letter-spacing: 3px;
+            }
+        }
         ul {
             list-style: none;
             li {
@@ -29,7 +44,6 @@ export default {
                 margin: 0 20px;
                 a {
                     text-transform: uppercase;
-                    font-weight: 800;
                     text-decoration: none;
                     cursor: pointer;
                     color: rgb(123, 119, 112);
@@ -37,7 +51,8 @@ export default {
                         color: rgb(80, 52, 9);
                     }
                     &.router-link-exact-active {
-                        color: rgb(11, 88, 7);
+                        //text-decoration: underline;
+                        border-bottom: 2px solid #606264;
                     }
                 }
             }

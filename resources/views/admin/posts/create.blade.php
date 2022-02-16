@@ -14,7 +14,7 @@
     </div>
     @endif
 
-    <form action="{{ route('admin.posts.store') }}" method="post">
+    <form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="my-5">
             <label for="title" class="form-label">Titolo</label>
@@ -72,6 +72,10 @@
                     <label for="{{ $loop->iteration }}">{{ $tag->name }}</label>
                 </span>
             @endforeach
+        </div>
+
+        <div class="mb-3">
+            <input type="file">
         </div>
 
         <button type="submit" class="btn btn-success mt-4">submit</button>

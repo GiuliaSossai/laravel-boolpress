@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div class="sidebar">
       <div class="box cat">
          <p>Categorie:</p>
          <span
@@ -37,35 +37,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-   .box, span, button {
-      border: 1px solid grey;
-      border-radius: 8px;
-      padding: 8px;
-   }
-   .box {
-      margin-bottom: 20px;
-      background-color: rgb(235, 229, 229);
-   }
-   span {
-      display: inline-block;
-      background-color: rgb(236, 165, 165);
-      margin: 8px;
-      cursor: pointer;
-      &:hover {
-         background-color: rgb(248, 203, 203);
+   .sidebar {
+      margin-top: 180px;
+      .box, span, button {
+         border: 1px solid grey;
+         border-radius: 8px;
+         padding: 8px;
       }
-   }
-   .box.cat {
+      .box {
+         margin-bottom: 20px;
+         background-color: rgb(235, 229, 229);
+      }
       span {
-         background-color: rgb(250, 221, 56);
+         display: inline-block;
+         background-color: rgb(236, 165, 165);
+         margin: 8px;
+         cursor: pointer;
          &:hover {
-         background-color: rgb(248, 236, 166);
+            background-color: rgb(248, 203, 203);
          }
       }
+      .box.cat {
+         span {
+            background-color: rgb(250, 221, 56);
+            &:hover {
+            background-color: rgb(248, 236, 166);
+            }
+         }
+      }
+      button:hover {
+         color: rgb(64, 247, 97);
+      }
    }
-   button:hover {
-      color: rgb(64, 247, 97);
-   }
+   
    
 
 </style>

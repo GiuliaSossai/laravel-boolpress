@@ -2,7 +2,7 @@
     <main>
         <div class="content">
             <div v-if="success">
-                <h3>{{ title }}</h3>
+                <h1>{{ title }}</h1>
 
                 <div v-if="posts">
                     <PostItem 
@@ -73,7 +73,7 @@ export default {
             tags: [],
             success: true,
             error_msg: '',
-            title: 'I miei post',
+            title: 'post!',
             globalPosts: true
         }
     },
@@ -87,7 +87,7 @@ export default {
             this.erorr_msg = '';
             this.success = true;
             this.posts = null;
-            this.title = 'I miei post';
+            this.title = 'post!';
             this.globalPosts = true;
         },
 
@@ -115,7 +115,7 @@ export default {
             .then( res => {
                 console.log(res.data.category.posts);
                 this.posts = res.data.category.posts;
-                this.title = "I miei post per la categoria: " + res.data.category.name;
+                this.title = "post per la categoria: " + res.data.category.name;
                 if(!res.data.success){
                     this.error_msg = res.data.error;
                     this.success = false;
@@ -129,7 +129,7 @@ export default {
             axios.get(this.apiUrl + '/posttag/' + slug_tag)
             .then( res => {
                 this.posts = res.data.tag.posts;
-                this.title = "I miei post per il tag: " + res.data.tag.name;
+                this.title = "post per il tag: " + res.data.tag.name;
                 if(!res.data.success){
                     this.error_msg = res.data.error;
                     this.success = false;
@@ -145,17 +145,25 @@ export default {
         width: 80%;
         margin: 0 auto;
         display: flex;
-        padding: 30px;
+        //align-items: center;
+        padding: 50px 30px; 
         .content {
-            margin-bottom: 100px;
+            margin: 100px 0;
             width: 70%;
-            h3 {
-            margin-bottom: 30px;
+            h1 {
+                color: #747579;
+                text-transform: uppercase;
+                letter-spacing: 3px;
+                margin-bottom: 50px;
             }
-            button {
-                padding: 10px;
-                margin-right: 10px;
+            .navigation {
+                margin: 100px 0 50px 0;
+                button {
+                    padding: 10px;
+                    margin-right: 10px;
+                }
             }
+            
         }
         
     }

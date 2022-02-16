@@ -24,6 +24,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+  div {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
 
 </style>
