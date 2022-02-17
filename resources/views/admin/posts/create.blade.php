@@ -54,7 +54,7 @@
         </div>
 
         <div class="mb-3">
-            <h5 class="mt-5">Tag</h5>
+            <label for="tag" class="d-block mt-5">Tag</label>
 
             @foreach ($tags as $tag)
                 <span class="d-inline-block mr-3">
@@ -75,7 +75,13 @@
         </div>
 
         <div class="mb-3">
-            <input type="file">
+            <label for="cover">Immagine</label>
+            <input
+                class="form-control @error('cover') is-invalid @enderror"
+                type="file" name="cover" id="cover">
+                @error('cover')
+                    <p class="gs-error">{{ $message }}</p>
+                @enderror
         </div>
 
         <button type="submit" class="btn btn-success mt-4">submit</button>

@@ -13,6 +13,12 @@
     @empty
         -   
     @endforelse
+
+    @if ($post->cover)
+       <div class="cover">
+            <img width="500" src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->title }}">
+        </div> 
+    @endif
    
    <p>{{ $post->content }}</p>
 

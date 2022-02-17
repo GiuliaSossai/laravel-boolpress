@@ -15,7 +15,7 @@
     </div>
     @endif
 
-    <form action="{{ route('admin.posts.update', $post) }}" method="post">
+    <form action="{{ route('admin.posts.update', $post) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="my-5">
@@ -77,6 +77,21 @@
                     <label for="{{ $loop->iteration }}">{{ $tag->name }}</label>
                 </span>
             @endforeach
+        </div>
+
+        <div class="mb-3">
+            <label for="cover">Immagine</label>
+            @if ($post->cover)
+                <div class="cover">
+                    <img class="mb-2" width="150" src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->title }}">
+                </div> 
+            @endif
+            <input
+                class="form-control @error('cover') is-invalid @enderror"
+                type="file" name="cover" id="cover">
+                @error('cover')
+                    <p class="gs-error">{{ $message }}</p>
+                @enderror
         </div>
 
         <button type="submit" class="btn btn-success mt-4">submit</button>

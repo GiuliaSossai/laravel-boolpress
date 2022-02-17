@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -45,19 +46,39 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
+
+        //file è proprietà di request - gli passo il file che mi aspetto e vado a vederlo
+        //dd($request->file('cover')->getClientOriginalName());
+        
         $request->validate(
             [
                 'title'=>"required|min:2",
-                'content'=>"min:3"
+                'content'=>"min:3",
+                'cover'=>"nullable|image|max:30000"
             ],
             [
                 'title.required'=>'The title is compulsory',
                 'title.min'=>'The title is too short',
-                'content.min'=>'The description is too short'
+                'content.min'=>'The description is too short',
+                'cover.image'=>'File must be an image',
+                'cover.max'=>'The file is too big'
             ]
         );
 
         $data = $request->all();
+
+        //prima del fill e prima di salvare dentro controllare se l'immagine esiste
+        if(array_key_exists('cover', $data)){
+            //devo prendere il nome originale del file img, salvarlo e prenderne il percorso
+            //prendo $data che dovrà essere fillato come ho messo nel model Post, gli assegno la chiave della tabella - sarà uguale al dd provato sopra (con getclientoriginal name per ottenere il nome) - così ho salvato il nome in data
+            $data['original_cover_name'] = $request->file('cover')->getClientOriginalName();
+            //per il percorso devo importare la facade Storage con metodo statico put, il file andrà quindi in una cartella che chiamo uploads (che crea laravel così) - e l'immagine che ho chiamato cover
+            $image_path = Storage::put('uploads', $data['cover']);
+            //faccio il fill del dato
+            $data['cover'] = $image_path;
+            
+        }
 
         $new_post = new Post();
         //posso creare lo slug direttmente in $data
@@ -123,16 +144,31 @@ class PostController extends Controller
         $request->validate(
             [
                 'title'=>"required|min:2",
-                'content'=>"min:3"
+                'content'=>"min:3",
+                'cover'=>"nullable|image|max:30000"
             ],
             [
                 'title.required'=>'The title is compulsory',
                 'title.min'=>'The title is too short',
-                'content.min'=>'The description is too short'
+                'content.min'=>'The description is too short',
+                'cover.image'=>'File must be an image',
+                'cover.max'=>'The file is too big'
             ]
         );
 
         $data = $request->all();
+
+        if(array_key_exists('cover', $data)){
+            //elimino la vecchia immagine
+            if($post->cover){
+                Storage::delete($post->cover);
+            }
+
+            //come in store
+            $data['original_cover_name'] = $request->file('cover')->getClientOriginalName();
+            $img_path = Storage::put('uploads', $data['cover']);
+            $data['cover'] = $img_path;
+        }
 
         //controllo sullo slug:
         //genero un nuovo slug solo se il titolo del post è stato modificato
@@ -161,6 +197,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        //elimino l'immagine associata al post se c'è - altrimenti eliminerei sì il post ma nel db resterebbe l'immagine
+        if($post->cover){
+            Storage::delete($post->cover);
+        }
+        
         $post->delete();
 
         return redirect()->route('admin.posts.index')->with('deleted', "il post $post->title è stato eliminato con successo");
